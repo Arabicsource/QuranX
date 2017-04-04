@@ -191,6 +191,7 @@
     <Content Include="App_Data\Tafsirs\Asrar.xml" />
     <Content Include="App_Data\Tafsirs\Jalal.xml" />
     <Content Include="App_Data\Tafsirs\Kashani.xml" />
+    <Content Include="App_Data\Tafsirs\Kathir.xml" />
     <Content Include="App_Data\Tafsirs\Maududi.xml" />
     <Content Include="App_Data\Tafsirs\Qushairi.xml" />
     <Content Include="App_Data\Tafsirs\Tustari.xml" />
