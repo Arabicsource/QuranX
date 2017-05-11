@@ -31,7 +31,7 @@
 <script>
     $(document).ready(function () {
         var translationsForm = $("#TranslationsForm");
-        translationsForm.select("input[type=checkbox]").click(function (e) { translationsForm.submit(); });
+        $("#TranslationsForm input[type=checkbox]").click(function (e) { translationsForm.submit(); });
         translationsForm.submit(function (e) {
             $.post("@Url.Action(actionName: null)", translationsForm.serialize(), function (html) {
                 $("#VersesContainer").html(html);
