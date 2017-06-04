@@ -20,7 +20,8 @@ namespace QuranX.SeedDatabase
             {
                 DataFolder = args[0];
                 var objectSpace = new ObjectSpace();
-                CreateVerses(objectSpace);
+                //QuranImporter.Execute(objectSpace, DataFolder);
+                TafsirImporter.Execute(objectSpace, DataFolder);
             }
         }
 
@@ -29,10 +30,5 @@ namespace QuranX.SeedDatabase
             Console.WriteLine("QuranX.SeedDatabase {path to data files}");
         }
 
-        private static void CreateVerses(ObjectSpace objectSpace)
-        {
-            QuranImporter.Execute(objectSpace, DataFolder);
-            
-        }
     }
 }

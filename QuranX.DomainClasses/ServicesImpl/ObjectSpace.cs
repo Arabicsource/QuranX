@@ -7,6 +7,8 @@ namespace QuranX.DomainClasses.ServicesImpl
     {
         public DbSet<Translator> Translators { get; set; }
         public DbSet<VerseText> VerseTexts { get; set; }
+        public DbSet<Commentator> Commentators { get; set; }
+        public DbSet<Commentary> Commentaries { get; set; }
 
         public ObjectSpace() : base("QuranX") { }
     }
