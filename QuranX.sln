@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RationalizingIslam.DocumentModel", "RationalizingIslam.DocumentModel\RationalizingIslam.DocumentModel.csproj", "{32BD00B9-5689-45D5-BA1A-376EA8BE22EC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuranX", "Web\QuranX.csproj", "{2D6F8C09-D724-48C7-9FF8-2E3218FBD45C}"
@@ -11,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D55631
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuranX.DomainClasses", "QuranX.DomainClasses\QuranX.DomainClasses.csproj", "{72678E72-3888-4D0A-81C7-23010617AED8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuranX.SeedDatabase", "QuranX.SeedDatabase\QuranX.SeedDatabase.csproj", "{6CD080A7-5287-49B2-8F0E-DC71304AC28A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +50,30 @@ Global
 		{2D6F8C09-D724-48C7-9FF8-2E3218FBD45C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2D6F8C09-D724-48C7-9FF8-2E3218FBD45C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{2D6F8C09-D724-48C7-9FF8-2E3218FBD45C}.Release|x86.ActiveCfg = Release|Any CPU
+		{72678E72-3888-4D0A-81C7-23010617AED8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72678E72-3888-4D0A-81C7-23010617AED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72678E72-3888-4D0A-81C7-23010617AED8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{72678E72-3888-4D0A-81C7-23010617AED8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{72678E72-3888-4D0A-81C7-23010617AED8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{72678E72-3888-4D0A-81C7-23010617AED8}.Debug|x86.Build.0 = Debug|Any CPU
+		{72678E72-3888-4D0A-81C7-23010617AED8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72678E72-3888-4D0A-81C7-23010617AED8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72678E72-3888-4D0A-81C7-23010617AED8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{72678E72-3888-4D0A-81C7-23010617AED8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{72678E72-3888-4D0A-81C7-23010617AED8}.Release|x86.ActiveCfg = Release|Any CPU
+		{72678E72-3888-4D0A-81C7-23010617AED8}.Release|x86.Build.0 = Release|Any CPU
+		{6CD080A7-5287-49B2-8F0E-DC71304AC28A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CD080A7-5287-49B2-8F0E-DC71304AC28A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CD080A7-5287-49B2-8F0E-DC71304AC28A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6CD080A7-5287-49B2-8F0E-DC71304AC28A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6CD080A7-5287-49B2-8F0E-DC71304AC28A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6CD080A7-5287-49B2-8F0E-DC71304AC28A}.Debug|x86.Build.0 = Debug|Any CPU
+		{6CD080A7-5287-49B2-8F0E-DC71304AC28A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CD080A7-5287-49B2-8F0E-DC71304AC28A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CD080A7-5287-49B2-8F0E-DC71304AC28A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6CD080A7-5287-49B2-8F0E-DC71304AC28A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6CD080A7-5287-49B2-8F0E-DC71304AC28A}.Release|x86.ActiveCfg = Release|Any CPU
+		{6CD080A7-5287-49B2-8F0E-DC71304AC28A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
