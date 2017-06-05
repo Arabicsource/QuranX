@@ -9,6 +9,8 @@ namespace QuranX.DomainClasses.ServicesImpl
         public DbSet<VerseText> VerseTexts { get; set; }
         public DbSet<Commentator> Commentators { get; set; }
         public DbSet<Commentary> Commentaries { get; set; }
+        public DbSet<HadithCollector> HadithCollectors { get; set; }
+        public DbSet<HadithReferenceDefinition> HadithReferenceDefinitions { get; set; }
 
         public ObjectSpace() : base("QuranX") { }
     }

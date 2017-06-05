@@ -58,9 +58,15 @@
     <Compile Include="Migrations\201706041958181_Commentators and commentaries.Designer.cs">
       <DependentUpon>201706041958181_Commentators and commentaries.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706051925071_Add hadith collectors + reference definitions.cs" />
+    <Compile Include="Migrations\201706051925071_Add hadith collectors + reference definitions.Designer.cs">
+      <DependentUpon>201706051925071_Add hadith collectors + reference definitions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Commentary.cs" />
     <Compile Include="Model\Commentator.cs" />
+    <Compile Include="Model\HadithCollector.cs" />
+    <Compile Include="Model\HadithReferenceDefinition.cs" />
     <Compile Include="Model\Translator.cs" />
     <Compile Include="Model\VerseText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,6 +82,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706041958181_Commentators and commentaries.resx">
       <DependentUpon>201706041958181_Commentators and commentaries.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706051925071_Add hadith collectors + reference definitions.resx">
+      <DependentUpon>201706051925071_Add hadith collectors + reference definitions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

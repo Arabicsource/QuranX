@@ -1,19 +1,16 @@
 ﻿using QuranX.DomainClasses.Model;
 using QuranX.DomainClasses.ServicesImpl;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace QuranX.SeedDatabase
 {
     public class QuranImporter
     {
-        private readonly string DataFolder;
         private readonly ObjectSpace ObjectSpace;
+        private readonly string DataFolder;
 
         private QuranImporter(ObjectSpace objectSpace, string dataFolder)
         {
