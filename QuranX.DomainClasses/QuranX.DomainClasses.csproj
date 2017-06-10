@@ -62,10 +62,20 @@
     <Compile Include="Migrations\201706051925071_Add hadith collectors + reference definitions.Designer.cs">
       <DependentUpon>201706051925071_Add hadith collectors + reference definitions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706092222523_Add hadiths + references.cs" />
+    <Compile Include="Migrations\201706092222523_Add hadiths + references.Designer.cs">
+      <DependentUpon>201706092222523_Add hadiths + references.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706100836170_Add cascade delete from Hadith to HadithReference.cs" />
+    <Compile Include="Migrations\201706100836170_Add cascade delete from Hadith to HadithReference.Designer.cs">
+      <DependentUpon>201706100836170_Add cascade delete from Hadith to HadithReference.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Commentary.cs" />
     <Compile Include="Model\Commentator.cs" />
+    <Compile Include="Model\Hadith.cs" />
     <Compile Include="Model\HadithCollector.cs" />
+    <Compile Include="Model\HadithReference.cs" />
     <Compile Include="Model\HadithReferenceDefinition.cs" />
     <Compile Include="Model\Translator.cs" />
     <Compile Include="Model\VerseText.cs" />
@@ -85,6 +95,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706051925071_Add hadith collectors + reference definitions.resx">
       <DependentUpon>201706051925071_Add hadith collectors + reference definitions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706092222523_Add hadiths + references.resx">
+      <DependentUpon>201706092222523_Add hadiths + references.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706100836170_Add cascade delete from Hadith to HadithReference.resx">
+      <DependentUpon>201706100836170_Add cascade delete from Hadith to HadithReference.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

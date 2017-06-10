@@ -40,6 +40,7 @@ namespace QuranX.SeedDatabase
                     name: xml.Document.Root.Element("name").Value);
                 ObjectSpace.HadithCollectors.Add(collector);
                 ImportReferenceDefinitions(xml, collector.Code);
+                ImportHadiths(xml, collector.Code);
                 ObjectSpace.SaveChanges();
             }
         }
@@ -66,11 +67,59 @@ namespace QuranX.SeedDatabase
             }
         }
 
+        private void ImportHadiths(XDocument xml, string collectorCode)
+        {
+            IEnumerable<XElement> hadiths = xml.Document.Root.Descendants("hadith");
+            int counter = 0;
+            float total = hadiths.Count() / 1f;
+            var nextDisplayTime = DateTime.UtcNow.AddSeconds(1);
+            foreach(XElement hadithElement in hadiths)
+            {
+                counter++;
+                if (DateTime.UtcNow > nextDisplayTime)
+                {
+                    double percent = Math.Ceiling(counter * 100 / total);
+                    Console.WriteLine($"{collectorCode} {counter} of {total} ({percent}%)");
+                    nextDisplayTime = DateTime.UtcNow.AddSeconds(1);
+                }
+                var references = new List<HadithReference>();
+                foreach(XElement referenceElement in hadithElement.Element("references").Elements("reference"))
+                {
+                    var parts = referenceElement.Descendants("part").Select(x => x.Value).ToArray();
+                    string code = referenceElement.Element("code").Value;
+                    string suffix = referenceElement.Element("suffix")?.Value;
+                    string part1 = parts[0];
+                    string part2 = parts.Length > 1 ? parts[1] : null;
+                    string part3 = parts.Length > 2 ? parts[2] : null;
+                    references.Add(new HadithReference(
+                        code: code,
+                        part1: part1,
+                        part2: part2,
+                        part3: part3,
+                        suffix: suffix));
+                }
+                string arabic =
+                    string.Join("\r\n", hadithElement.Element("arabic").Elements("text").Select(x => x.Value));
+                string english =
+                    string.Join("\r\n", hadithElement.Element("english").Elements("text").Select(x => x.Value));
+                var hadith = new Hadith(
+                    collectorCode: collectorCode, 
+                    arabic: arabic, 
+                    english: english, 
+                    references: references);
+                ObjectSpace.Hadiths.Add(hadith);
+                ObjectSpace.SaveChanges();
+            }
+        }
+
+
         private void ClearData()
         {
             Console.WriteLine("Clearing HadithCollectors");
             ObjectSpace.HadithCollectors.RemoveRange(ObjectSpace.HadithCollectors);
             ObjectSpace.HadithReferenceDefinitions.RemoveRange(ObjectSpace.HadithReferenceDefinitions);
+            Console.WriteLine("Clearing Hadiths");
+            ObjectSpace.Hadiths.RemoveRange(ObjectSpace.Hadiths);
             ObjectSpace.SaveChanges();
         }
 

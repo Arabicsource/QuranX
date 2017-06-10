@@ -11,7 +11,17 @@ namespace QuranX.DomainClasses.ServicesImpl
         public DbSet<Commentary> Commentaries { get; set; }
         public DbSet<HadithCollector> HadithCollectors { get; set; }
         public DbSet<HadithReferenceDefinition> HadithReferenceDefinitions { get; set; }
+        public DbSet<Hadith> Hadiths { get; set; }
 
         public ObjectSpace() : base("QuranX") { }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Hadith>()
+                .HasMany(x => x.References)
+                .WithOptional()
+                .WillCascadeOnDelete();
+        }
     }
 }
