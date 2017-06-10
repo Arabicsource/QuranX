@@ -9,18 +9,16 @@ namespace QuranX.SeedDatabase
 {
     public class QuranImporter
     {
-        private readonly ObjectSpace ObjectSpace;
         private readonly string DataFolder;
 
-        private QuranImporter(ObjectSpace objectSpace, string dataFolder)
+        private QuranImporter(string dataFolder)
         {
-            this.ObjectSpace = objectSpace;
             this.DataFolder = dataFolder;
         }
 
-        public static void Execute(ObjectSpace objectSpace, string dataFolder)
+        public static void Execute(string dataFolder)
         {
-            var instance = new QuranImporter(objectSpace, dataFolder);
+            var instance = new QuranImporter(dataFolder);
             instance.Execute();
         }
 
@@ -33,31 +31,37 @@ namespace QuranX.SeedDatabase
 
         private void ClearData()
         {
-            Console.WriteLine("Clearing Translators");
-            ObjectSpace.Translators.RemoveRange(ObjectSpace.Translators);
-            Console.WriteLine("Clearing VerseTexts");
-            ObjectSpace.VerseTexts.RemoveRange(ObjectSpace.VerseTexts);
-            ObjectSpace.SaveChanges();
+            using (var objectSpace = new ObjectSpace())
+            {
+                Console.WriteLine("Clearing Translators");
+                objectSpace.Translators.RemoveRange(objectSpace.Translators);
+                Console.WriteLine("Clearing VerseTexts");
+                objectSpace.VerseTexts.RemoveRange(objectSpace.VerseTexts);
+                objectSpace.SaveChanges();
+            }
         }
 
         private void ImportArabic()
         {
-            Console.WriteLine("Importing VerseTexts: Arabic");
-            ObjectSpace.Translators.Add(new Translator(
-                code: "Arabic",
-                name: "Arabic",
-                displayOrder: 0));
-            var xml = XDocument.Load(File.OpenText(Path.Combine(DataFolder, "CorpusQuran.xml")));
-            var verses =
-                from chapter in xml.Document.Root.Descendants("chapter")
-                from verse in chapter.Descendants("verse")
-                select new VerseText(
-                    chapter: int.Parse(chapter.Attribute("index").Value),
-                    verse: int.Parse(verse.Attribute("index").Value),
-                    translatorCode: "Arabic",
-                    text: verse.Element("arabicText").Value);
-            ObjectSpace.VerseTexts.AddRange(verses);
-            ObjectSpace.SaveChanges();
+            using (var objectSpace = new ObjectSpace())
+            {
+                Console.WriteLine("Importing VerseTexts: Arabic");
+                objectSpace.Translators.Add(new Translator(
+                    code: "Arabic",
+                    name: "Arabic",
+                    displayOrder: 0));
+                var xml = XDocument.Load(File.OpenText(Path.Combine(DataFolder, "CorpusQuran.xml")));
+                var verses =
+                    from chapter in xml.Document.Root.Descendants("chapter")
+                    from verse in chapter.Descendants("verse")
+                    select new VerseText(
+                        chapter: int.Parse(chapter.Attribute("index").Value),
+                        verse: int.Parse(verse.Attribute("index").Value),
+                        translatorCode: "Arabic",
+                        text: verse.Element("arabicText").Value);
+                objectSpace.VerseTexts.AddRange(verses);
+                objectSpace.SaveChanges();
+            }
         }
 
         private void ImportTranslations()
@@ -65,10 +69,18 @@ namespace QuranX.SeedDatabase
             string sourceFolderPath = Path.Combine(DataFolder, "Translations");
             foreach (string filePath in Directory.GetFiles(sourceFolderPath, "*.xml"))
             {
-                var xml = XDocument.Load(File.OpenText(filePath));
-                string translatorCode = xml.Document.Root.Element("translatorCode").Value;
-                string translatorName = xml.Document.Root.Element("translatorName").Value;
-                ObjectSpace.Translators.Add(
+                ImportTranslation(filePath);
+            }
+        }
+
+        private static void ImportTranslation(string filePath)
+        {
+            var xml = XDocument.Load(File.OpenText(filePath));
+            string translatorCode = xml.Document.Root.Element("translatorCode").Value;
+            string translatorName = xml.Document.Root.Element("translatorName").Value;
+            using (var objectSpace = new ObjectSpace())
+            {
+                objectSpace.Translators.Add(
                     new Translator(
                         code: translatorCode,
                         name: translatorName,
@@ -83,8 +95,8 @@ namespace QuranX.SeedDatabase
                         verse: int.Parse(verse.Attribute("index").Value),
                         translatorCode: translatorName,
                         text: verse.Value);
-                ObjectSpace.VerseTexts.AddRange(verses);
-                ObjectSpace.SaveChanges();
+                objectSpace.VerseTexts.AddRange(verses);
+                objectSpace.SaveChanges();
             }
         }
     }

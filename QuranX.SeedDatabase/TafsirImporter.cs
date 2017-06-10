@@ -13,18 +13,15 @@ namespace QuranX.SeedDatabase
     public class TafsirImporter
     {
         readonly string DataFolder;
-        readonly ObjectSpace ObjectSpace;
-        private object XDocment;
 
-        public static void Execute(ObjectSpace objectSpace, string dataFolder)
+        public static void Execute(string dataFolder)
         {
-            var instance = new TafsirImporter(objectSpace, dataFolder);
+            var instance = new TafsirImporter(dataFolder);
             instance.Execute();
         }
 
-        private TafsirImporter(ObjectSpace objectSpace, string dataFolder)
+        private TafsirImporter(string dataFolder)
         {
-            this.ObjectSpace = objectSpace;
             this.DataFolder = dataFolder;
         }
 
@@ -35,13 +32,8 @@ namespace QuranX.SeedDatabase
             foreach(string filePath in Directory.GetFiles(folderPath, "*.xml"))
             {
                 Console.WriteLine("Importing tafsir: " + Path.GetFileNameWithoutExtension(filePath));
-                var xml = XDocument.Load(File.OpenText(filePath));
-                string commentatorCode = xml.Document.Root.Element("code").Value;
-                string commentatorName = xml.Document.Root.Element("mufassir").Value;
-                ObjectSpace.Commentators.Add(
-                    new Commentator(
-                        code: commentatorCode,
-                        name: commentatorName));
+                var xml = System.Xml.Linq.XDocument.Load(File.OpenText(filePath));
+                string commentatorCode = ImportCommentator(xml);
 
                 var commentaries =
                     from chapter in xml.Document.Root.Elements("chapter")
@@ -52,18 +44,52 @@ namespace QuranX.SeedDatabase
                         lastVerse: int.Parse(commentary.Element("lastVerse").Value),
                         commentatorCode: commentatorCode,
                         text: string.Join("\r\n", commentary.Elements("text").Select(x => x.Value)));
-                ObjectSpace.Commentaries.AddRange(commentaries);
-                ObjectSpace.SaveChanges();
+
+                int total = commentaries.Count();
+                int current = 0;
+                var nextUpdateTime = DateTime.UtcNow.AddSeconds(1);
+                foreach(var commentary in commentaries)
+                {
+                    current++;
+                    if (DateTime.UtcNow > nextUpdateTime)
+                    {
+                        double percent = Math.Ceiling(current * 100f / total);
+                        Console.WriteLine($"{commentatorCode} {current} ({percent}%)");
+                        nextUpdateTime = DateTime.UtcNow.AddSeconds(1);
+                    }
+                    using (var objectSpace = new ObjectSpace())
+                    {
+                        objectSpace.Commentaries.Add(commentary);
+                        objectSpace.SaveChanges();
+                    }
+                }
+            }
+        }
+
+        private static string ImportCommentator(XDocument xml)
+        {
+            using (var objectSpace = new ObjectSpace())
+            {
+                string commentatorCode = xml.Document.Root.Element("code").Value;
+                string commentatorName = xml.Document.Root.Element("mufassir").Value;
+                objectSpace.Commentators.Add(
+                    new Commentator(
+                        code: commentatorCode,
+                        name: commentatorName));
+                return commentatorCode;
             }
         }
 
         private void ClearData()
         {
-            Console.WriteLine("Clearing Commentators");
-            ObjectSpace.Commentators.RemoveRange(ObjectSpace.Commentators);
-            Console.WriteLine("Clearing Commentaries");
-            ObjectSpace.Commentaries.RemoveRange(ObjectSpace.Commentaries);
-            ObjectSpace.SaveChanges();
+            using (var objectSpace = new ObjectSpace())
+            {
+                Console.WriteLine("Clearing Commentators");
+                objectSpace.Commentators.RemoveRange(objectSpace.Commentators);
+                Console.WriteLine("Clearing Commentaries");
+                objectSpace.Commentaries.RemoveRange(objectSpace.Commentaries);
+                objectSpace.SaveChanges();
+            }
         }
     }
 }
