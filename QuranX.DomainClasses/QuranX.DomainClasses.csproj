@@ -70,6 +70,10 @@
     <Compile Include="Migrations\201706100836170_Add cascade delete from Hadith to HadithReference.Designer.cs">
       <DependentUpon>201706100836170_Add cascade delete from Hadith to HadithReference.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706101539233_Hadith verse references.cs" />
+    <Compile Include="Migrations\201706101539233_Hadith verse references.Designer.cs">
+      <DependentUpon>201706101539233_Hadith verse references.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Commentary.cs" />
     <Compile Include="Model\Commentator.cs" />
@@ -77,6 +81,7 @@
     <Compile Include="Model\HadithCollector.cs" />
     <Compile Include="Model\HadithReference.cs" />
     <Compile Include="Model\HadithReferenceDefinition.cs" />
+    <Compile Include="Model\HadithVerseReference.cs" />
     <Compile Include="Model\Translator.cs" />
     <Compile Include="Model\VerseText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -101,6 +106,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706100836170_Add cascade delete from Hadith to HadithReference.resx">
       <DependentUpon>201706100836170_Add cascade delete from Hadith to HadithReference.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706101539233_Hadith verse references.resx">
+      <DependentUpon>201706101539233_Hadith verse references.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

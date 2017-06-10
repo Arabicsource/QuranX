@@ -11,14 +11,21 @@ namespace QuranX.DomainClasses.Model
         public string Arabic { get; set; }
         public string English { get; set; }
         public virtual ICollection<HadithReference> References { get; set; } = new List<HadithReference>();
+        public virtual ICollection<HadithVerseReference> VerseReferences { get; set; } = new List<HadithVerseReference>();
 
         public Hadith() { }
-        public Hadith(string collectorCode, string arabic, string english, ICollection<HadithReference> references)
+        public Hadith(
+            string collectorCode, 
+            string arabic, 
+            string english, 
+            ICollection<HadithReference> references,
+            ICollection<HadithVerseReference> verseReferences)
         {
             this.CollectorCode = collectorCode;
-            this.Arabic = arabic;
-            this.English = english;
+            this.Arabic = arabic ?? "";
+            this.English = english ?? "";
             this.References = references ?? new List<HadithReference>();
+            this.VerseReferences = verseReferences ?? new List<HadithVerseReference>();
         }
     }
 }
