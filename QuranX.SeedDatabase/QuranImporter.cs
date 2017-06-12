@@ -211,18 +211,27 @@ namespace QuranX.SeedDatabase
                         code: translatorCode,
                         name: translatorName,
                         displayOrder: translatorCode == "Transliteration" ? 999 : 1));
-
-                Console.WriteLine($"Importing VerseTexts: {translatorCode} / {translatorName}");
-                var verses =
-                    from chapter in xml.Document.Root.Descendants("chapter")
-                    from verse in chapter.Descendants("verse")
-                    select new VerseText(
-                        chapter: int.Parse(chapter.Attribute("index").Value),
-                        verse: int.Parse(verse.Attribute("index").Value),
-                        translatorCode: translatorName,
-                        text: verse.Value);
-                objectSpace.VerseTexts.AddRange(verses);
                 objectSpace.SaveChanges();
+            }
+
+            Console.WriteLine($"Importing VerseTexts: {translatorCode} / {translatorName}");
+            var verses =
+                from chapter in xml.Document.Root.Descendants("chapter")
+                from verse in chapter.Descendants("verse")
+                select new VerseText(
+                    chapter: int.Parse(chapter.Attribute("index").Value),
+                    verse: int.Parse(verse.Attribute("index").Value),
+                    translatorCode: translatorName,
+                    text: verse.Value);
+
+            for (int i = 1; i <= 114; i++)
+            {
+                Console.WriteLine($"{translatorCode} chapter {i}");
+                using (var objectSpace = new ObjectSpace())
+                {
+                    objectSpace.VerseTexts.AddRange(verses.Where(x => x.Chapter == i));
+                    objectSpace.SaveChanges();
+                }
             }
         }
     }

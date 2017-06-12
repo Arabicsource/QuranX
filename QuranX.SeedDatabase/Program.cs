@@ -20,8 +20,8 @@ namespace QuranX.SeedDatabase
             {
                 DataFolder = args[0];
                 QuranImporter.Execute(DataFolder);
-                //TafsirImporter.Execute(DataFolder);
-                //HadithImporter.Execute(DataFolder);
+                TafsirImporter.Execute(DataFolder);
+                HadithImporter.Execute(DataFolder);
             }
         }
 

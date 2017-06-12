@@ -65,5 +65,48 @@
       <Name>QuranX.DomainClasses</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\CorpusQuran.xml" />
+    <Content Include="Resources\Hadiths\AbuDawud.xml" />
+    <Content Include="Resources\Hadiths\Adab.xml" />
+    <Content Include="Resources\Hadiths\Bukhari.xml" />
+    <Content Include="Resources\Hadiths\IbnMajah.xml" />
+    <Content Include="Resources\Hadiths\Malik.xml" />
+    <Content Include="Resources\Hadiths\Maram.xml" />
+    <Content Include="Resources\Hadiths\Muslim.xml" />
+    <Content Include="Resources\Hadiths\Nasai.xml" />
+    <Content Include="Resources\Hadiths\Saliheen.xml" />
+    <Content Include="Resources\Hadiths\Shamail.xml" />
+    <Content Include="Resources\Hadiths\Tirmidhi.xml" />
+    <Content Include="Resources\Tafsirs\Abbas.xml" />
+    <Content Include="Resources\Tafsirs\Asrar.xml" />
+    <Content Include="Resources\Tafsirs\Jalal.xml" />
+    <Content Include="Resources\Tafsirs\Kashani.xml" />
+    <Content Include="Resources\Tafsirs\Kathir.xml" />
+    <Content Include="Resources\Tafsirs\Maududi.xml" />
+    <Content Include="Resources\Tafsirs\Qushairi.xml" />
+    <Content Include="Resources\Tafsirs\Tustari.xml" />
+    <Content Include="Resources\Tafsirs\Wahidi.xml" />
+    <Content Include="Resources\Translations\AhmadAli.xml" />
+    <Content Include="Resources\Translations\AhmadRazaKhan.xml" />
+    <Content Include="Resources\Translations\AJArberry.xml" />
+    <Content Include="Resources\Translations\CorpusQuran.xml" />
+    <Content Include="Resources\Translations\Daryabadi.xml" />
+    <Content Include="Resources\Translations\Hilali.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Resources\Translations\Itani.xml" />
+    <Content Include="Resources\Translations\Maududi.xml" />
+    <Content Include="Resources\Translations\Pickthall.xml" />
+    <Content Include="Resources\Translations\Qarai.xml" />
+    <Content Include="Resources\Translations\Qaribullah.xml" />
+    <Content Include="Resources\Translations\Sahih.xml" />
+    <Content Include="Resources\Translations\Sarwar.xml" />
+    <Content Include="Resources\Translations\Shakir.xml" />
+    <Content Include="Resources\Translations\Transliteration.xml" />
+    <Content Include="Resources\Translations\Wahiduddin.xml" />
+    <Content Include="Resources\Translations\YusufAli.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
