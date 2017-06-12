@@ -1,4 +1,4 @@
-﻿using QuranX.DomainClasses.ServicesImpl;
+﻿using QuranX.DomainClasses.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
