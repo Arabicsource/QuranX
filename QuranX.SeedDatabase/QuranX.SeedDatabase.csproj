@@ -79,6 +79,24 @@
     <Content Include="Resources\Hadiths\Saliheen.xml" />
     <Content Include="Resources\Hadiths\Shamail.xml" />
     <Content Include="Resources\Hadiths\Tirmidhi.xml" />
+    <Content Include="Resources\HadithXRefs\AbuDawud.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HadithXRefs\Bukhari.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HadithXRefs\Malik.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HadithXRefs\Muslim.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HadithXRefs\Nasai.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\HadithXRefs\Tirmidhi.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Tafsirs\Abbas.xml" />
     <Content Include="Resources\Tafsirs\Asrar.xml" />
     <Content Include="Resources\Tafsirs\Jalal.xml" />
