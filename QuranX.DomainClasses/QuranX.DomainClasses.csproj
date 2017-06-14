@@ -90,6 +90,10 @@
     <Compile Include="Migrations\201706112156072_Add Chapters.Designer.cs">
       <DependentUpon>201706112156072_Add Chapters.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706141904594_Cascade delete from Hadith to HadithVerseReferences.cs" />
+    <Compile Include="Migrations\201706141904594_Cascade delete from Hadith to HadithVerseReferences.Designer.cs">
+      <DependentUpon>201706141904594_Cascade delete from Hadith to HadithVerseReferences.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Chapter.cs" />
     <Compile Include="Model\Commentary.cs" />
@@ -129,6 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706112156072_Add Chapters.resx">
       <DependentUpon>201706112156072_Add Chapters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706141904594_Cascade delete from Hadith to HadithVerseReferences.resx">
+      <DependentUpon>201706141904594_Cascade delete from Hadith to HadithVerseReferences.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

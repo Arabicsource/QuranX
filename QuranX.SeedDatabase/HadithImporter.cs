@@ -11,6 +11,7 @@ namespace QuranX.SeedDatabase
     public class HadithImporter
     {
         private readonly string DataFolder;
+        private readonly Dictionary<string, string[]> VersesByHadithReference;
 
         public static void Execute(string dataFolder)
         {
@@ -21,13 +22,14 @@ namespace QuranX.SeedDatabase
         private HadithImporter(string dataFolder)
         {
             this.DataFolder = dataFolder;
+            this.VersesByHadithReference = new Dictionary<string, string[]>(StringComparer.InvariantCultureIgnoreCase);
         }
 
         private void Execute()
         {
             ClearData();
             string folderPath = Path.Combine(DataFolder, "Hadiths");
-            foreach (string filePath in Directory.GetFiles(folderPath, "*.xml"))
+            foreach (string filePath in Directory.GetFiles(folderPath, "Malik*.xml")) //TODO: Remove "Malik"
             {
                 XDocument xml;
                 HadithCollector collector;
@@ -37,7 +39,7 @@ namespace QuranX.SeedDatabase
             }
         }
 
-        private static void ImportCollector(string filePath, out XDocument xml, out HadithCollector collector)
+        private void ImportCollector(string filePath, out XDocument xml, out HadithCollector collector)
         {
             using (var objectSpace = new ObjectSpace())
             {
@@ -79,6 +81,7 @@ namespace QuranX.SeedDatabase
 
         private void ImportHadiths(XDocument xml, string collectorCode)
         {
+            LoadHadithVerseCrossReferences(collectorCode);
             IEnumerable<XElement> hadiths = xml.Document.Root.Descendants("hadith");
             int counter = 0;
             float total = hadiths.Count() / 1f;
@@ -94,8 +97,8 @@ namespace QuranX.SeedDatabase
                         Console.WriteLine($"{collectorCode} {counter} of {total} ({percent}%)");
                         nextDisplayTime = DateTime.UtcNow.AddSeconds(1);
                     }
-                    List<HadithReference> references = ImportReferences(hadithElement);
-                    List<HadithVerseReference> verseReferences = ImportVerseReferences(hadithElement);
+                    List<HadithReference> hadithReferences = ImportReferences(hadithElement);
+                    List<HadithVerseReference> verseReferences = ImportVerseReferences(hadithElement, hadithReferences);
                     string arabic =
                         string.Join("\r\n", hadithElement.Element("arabic").Elements("text").Select(x => x.Value));
                     string english =
@@ -104,7 +107,7 @@ namespace QuranX.SeedDatabase
                         collectorCode: collectorCode,
                         arabic: arabic,
                         english: english,
-                        references: references,
+                        references: hadithReferences,
                         verseReferences: verseReferences);
                     objectSpace.Hadiths.Add(hadith);
                     objectSpace.SaveChanges();
@@ -130,14 +133,14 @@ namespace QuranX.SeedDatabase
                     part3: part3,
                     suffix: suffix));
             }
-
             return references;
         }
 
-        private List<HadithVerseReference> ImportVerseReferences(XElement hadithElement)
+        private List<HadithVerseReference> ImportVerseReferences(XElement hadithElement, List<HadithReference> hadithReferences)
         {
+            var alreadyIncludedVerses = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
             var verseReferences = new List<HadithVerseReference>();
-            foreach(XElement verseReferenceElement in hadithElement.Element("verseReferences").Elements("reference"))
+            foreach (XElement verseReferenceElement in hadithElement.Element("verseReferences").Elements("reference"))
             {
                 int chapter = int.Parse(verseReferenceElement.Element("chapter").Value);
                 int firstVerse = int.Parse(verseReferenceElement.Element("firstVerse").Value);
@@ -146,8 +149,50 @@ namespace QuranX.SeedDatabase
                     chapter: chapter,
                     firstVerse: firstVerse,
                     lastVerse: lastVerse));
+                //Note temporarily that we have already added this verse range
+                alreadyIncludedVerses.Add($"{chapter}.{firstVerse}-{lastVerse}");
             }
+
+            ImportVerseReferencesFromCrossReferenceFile(hadithReferences, alreadyIncludedVerses);
+
             return verseReferences;
+        }
+
+        private void ImportVerseReferencesFromCrossReferenceFile(
+            List<HadithReference> hadithReferences, 
+            HashSet<string> alreadyIncludedVerses)
+        {
+            var hadithReferenceStrings = new HashSet<string>(
+                collection: hadithReferences
+                    .Select(x => HadithVerseReferenceToString(x.Code, new string[] { x.Part1, x.Part2, x.Part3 })),
+                comparer: StringComparer.CurrentCultureIgnoreCase);
+
+            foreach(string hadithReferenceString in hadithReferenceStrings)
+            {
+                string[] verseReferenceStrings;
+                if (!VersesByHadithReference.TryGetValue(hadithReferenceString, out verseReferenceStrings))
+                    continue;
+
+                //Parse the verses from the verseReferenceStrings
+                //If not already in alreadyIncludedVerses then add to result and add to alreadyIncludedVerses
+            }
+                
+        }
+
+        private void LoadHadithVerseCrossReferences(string collectorCode)
+        {
+            VersesByHadithReference.Clear();
+            string filePath = Path.Combine(DataFolder, "HadithXRefs", collectorCode + ".txt");
+            if (!File.Exists(filePath))
+                return;
+            string[] lines = File.ReadAllLines(filePath);
+            foreach (string line in lines.Where(x => !string.IsNullOrWhiteSpace(x)))
+            {
+                string[] parts = line.Split('\t');
+                string key = parts[0];
+                string[] values = parts.Skip(1).ToArray();
+                VersesByHadithReference.Add(key, values);
+            }
         }
 
         private void ClearData()
@@ -161,6 +206,11 @@ namespace QuranX.SeedDatabase
                 objectSpace.Hadiths.RemoveRange(objectSpace.Hadiths);
                 objectSpace.SaveChanges();
             }
+        }
+
+        private string HadithVerseReferenceToString(string code, string[] parts)
+        {
+            return code + "/" + string.Join(".", parts.Where(x => x != null));
         }
 
     }

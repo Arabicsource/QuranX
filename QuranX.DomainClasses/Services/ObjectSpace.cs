@@ -23,6 +23,10 @@ namespace QuranX.DomainClasses.Services
                 .HasMany(x => x.References)
                 .WithOptional()
                 .WillCascadeOnDelete();
+            modelBuilder.Entity<Hadith>()
+                .HasMany(x => x.VerseReferences)
+                .WithOptional()
+                .WillCascadeOnDelete();
         }
     }
 }
