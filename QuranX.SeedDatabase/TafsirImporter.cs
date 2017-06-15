@@ -1,11 +1,8 @@
 ﻿using QuranX.DomainClasses.Model;
 using QuranX.DomainClasses.Services;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace QuranX.SeedDatabase
@@ -85,9 +82,9 @@ namespace QuranX.SeedDatabase
             using (var objectSpace = new ObjectSpace())
             {
                 Console.WriteLine("Clearing Commentators");
-                objectSpace.Commentators.RemoveRange(objectSpace.Commentators);
+                objectSpace.Database.ExecuteSqlCommand("delete from Commentators");
                 Console.WriteLine("Clearing Commentaries");
-                objectSpace.Commentaries.RemoveRange(objectSpace.Commentaries);
+                objectSpace.Database.ExecuteSqlCommand("delete from Commentaries");
                 objectSpace.SaveChanges();
             }
         }

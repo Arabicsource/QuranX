@@ -217,10 +217,10 @@ namespace QuranX.SeedDatabase
             using (var objectSpace = new ObjectSpace())
             {
                 Console.WriteLine("Clearing HadithCollectors");
-                objectSpace.HadithCollectors.RemoveRange(objectSpace.HadithCollectors);
-                objectSpace.HadithReferenceDefinitions.RemoveRange(objectSpace.HadithReferenceDefinitions);
+                objectSpace.Database.ExecuteSqlCommand("delete from HadithCollectors");
+                objectSpace.Database.ExecuteSqlCommand("delete from HadithReferenceDefinitions");
                 Console.WriteLine("Clearing Hadiths");
-                objectSpace.Hadiths.RemoveRange(objectSpace.Hadiths);
+                objectSpace.Database.ExecuteSqlCommand("delete from Hadiths");
                 objectSpace.SaveChanges();
             }
         }
