@@ -19,9 +19,11 @@ namespace QuranX.SeedDatabase
             else
             {
                 DataFolder = args[0];
-                //QuranImporter.Execute(DataFolder);
-                //TafsirImporter.Execute(DataFolder);
+                QuranImporter.Execute(DataFolder);
+                TafsirImporter.Execute(DataFolder);
                 HadithImporter.Execute(DataFolder);
+                Console.WriteLine("===========DONE=========");
+                Console.ReadLine();
             }
         }
 

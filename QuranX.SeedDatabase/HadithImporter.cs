@@ -29,7 +29,7 @@ namespace QuranX.SeedDatabase
         {
             ClearData();
             string folderPath = Path.Combine(DataFolder, "Hadiths");
-            foreach (string filePath in Directory.GetFiles(folderPath, "Malik*.xml")) //TODO: Remove "Malik"
+            foreach (string filePath in Directory.GetFiles(folderPath, "*.xml"))
             {
                 XDocument xml;
                 HadithCollector collector;
@@ -152,16 +152,16 @@ namespace QuranX.SeedDatabase
                 //Note temporarily that we have already added this verse range
                 alreadyIncludedVerses.Add($"{chapter}.{firstVerse}-{lastVerse}");
             }
-
-            ImportVerseReferencesFromCrossReferenceFile(hadithReferences, alreadyIncludedVerses);
+            verseReferences.AddRange(ParseVerseReferencesFromCrossReferenceFile(hadithReferences, alreadyIncludedVerses));
 
             return verseReferences;
         }
 
-        private void ImportVerseReferencesFromCrossReferenceFile(
+        private List<HadithVerseReference> ParseVerseReferencesFromCrossReferenceFile(
             List<HadithReference> hadithReferences, 
             HashSet<string> alreadyIncludedVerses)
         {
+            var result = new List<HadithVerseReference>();
             var hadithReferenceStrings = new HashSet<string>(
                 collection: hadithReferences
                     .Select(x => HadithVerseReferenceToString(x.Code, new string[] { x.Part1, x.Part2, x.Part3 })),
@@ -175,8 +175,25 @@ namespace QuranX.SeedDatabase
 
                 //Parse the verses from the verseReferenceStrings
                 //If not already in alreadyIncludedVerses then add to result and add to alreadyIncludedVerses
+                foreach (string verseReferenceString in verseReferenceStrings)
+                {
+                    string[] parts = verseReferenceString.Split('.');
+                    int chapter = int.Parse(parts[0]);
+                    parts = parts[1].Split('-');
+                    int firstVerse = int.Parse(parts[0]);
+                    int lastVerse = parts.Length == 1 ? firstVerse : int.Parse(parts[1]);
+                    string formatted = $"{chapter}.{firstVerse}-{lastVerse}";
+                    if (!alreadyIncludedVerses.Contains(formatted))
+                    {
+                        alreadyIncludedVerses.Add(formatted);
+                        result.Add(new HadithVerseReference(
+                            chapter: chapter,
+                            firstVerse: firstVerse,
+                            lastVerse: lastVerse));
+                    }
+                }
             }
-                
+            return result;    
         }
 
         private void LoadHadithVerseCrossReferences(string collectorCode)
@@ -190,7 +207,7 @@ namespace QuranX.SeedDatabase
             {
                 string[] parts = line.Split('\t');
                 string key = parts[0];
-                string[] values = parts.Skip(1).ToArray();
+                string[] values = parts.Skip(1).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
                 VersesByHadithReference.Add(key, values);
             }
         }
