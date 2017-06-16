@@ -1,4 +1,5 @@
-﻿using QuranX.Models;
+﻿using QuranX.DomainClasses.Services;
+using QuranX.Models;
 using RationalizingIslam.DocumentModel;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,16 @@ namespace QuranX.Controllers
 {
     public class QuranController : Controller
     {
+        private readonly IChapterRepository ChapterRepository;
+
+        public QuranController(IChapterRepository chapterRepository)
+        {
+            this.ChapterRepository = chapterRepository;
+        }
+
         public ActionResult Chapters()
         {
-            return View(SharedData.Document.QuranDocument.Chapters);
+            return View(ChapterRepository.All());
         }
 
         [HttpPost]

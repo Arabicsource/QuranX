@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RationalizingIslam.DocumentModel.Chapter>
+﻿@model IEnumerable<QuranX.DomainClasses.Model.Chapter>
 
 @{
     ViewBag.Title = "Quran Chapters";
@@ -18,7 +18,7 @@
     @foreach (var item in Model)
     {
         <li>
-            @Html.ActionLink(item.EnglishName, "Verse", new { Chapter = item.Index, Verse = 1, LastVerse = -1 })
+            @Html.ActionLink(item.EnglishName, "Verse", new { Chapter = item.Number, Verse = 1, LastVerse = -1 })
         </li>    
     }
 </ol>
