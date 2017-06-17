@@ -12,20 +12,19 @@ namespace QuranX.DomainClasses.Model
         public string Type { get; set; }
         [MaxLength(8)]
         public string Root { get; set; }
-        public virtual ICollection<VerseAnalysisWordPartDecorator> Decorators { get; set; }
+        public string Decorators { get; set; }
 
         public VerseAnalysisWordPart() { }
         public VerseAnalysisWordPart(
             int index,
             string type,
             string root,
-            VerseAnalysisWordPartDecorator[] decorators)
+            string decorators)
         {
             this.Index = index;
             this.Type = type;
             this.Root = root;
-            this.Decorators = new List<VerseAnalysisWordPartDecorator>(
-                decorators ?? new VerseAnalysisWordPartDecorator[0]);
+            this.Decorators = decorators;
         }
     }
 }

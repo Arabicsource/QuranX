@@ -32,10 +32,6 @@ namespace QuranX.DomainClasses.Services
                 .HasMany(x => x.Parts)
                 .WithOptional()
                 .WillCascadeOnDelete();
-            modelBuilder.Entity<VerseAnalysisWordPart>()
-                .HasMany(x => x.Decorators)
-                .WithOptional()
-                .WillCascadeOnDelete();
         }
     }
 }

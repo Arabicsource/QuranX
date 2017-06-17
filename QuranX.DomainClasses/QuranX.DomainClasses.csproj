@@ -93,6 +93,10 @@
     <Compile Include="Migrations\201706172224379_Increase column lengths for VerseAnalysisWord.Designer.cs">
       <DependentUpon>201706172224379_Increase column lengths for VerseAnalysisWord.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706172247517_Move decorators into VerseAnalysisWordPart.cs" />
+    <Compile Include="Migrations\201706172247517_Move decorators into VerseAnalysisWordPart.Designer.cs">
+      <DependentUpon>201706172247517_Move decorators into VerseAnalysisWordPart.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Chapter.cs" />
     <Compile Include="Model\Commentary.cs" />
@@ -105,7 +109,6 @@
     <Compile Include="Model\Translator.cs" />
     <Compile Include="Model\VerseAnalysisWord.cs" />
     <Compile Include="Model\VerseAnalysisWordPart.cs" />
-    <Compile Include="Model\VerseAnalysisWordPartDecorator.cs" />
     <Compile Include="Model\VerseText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ChapterRepository.cs" />
@@ -146,6 +149,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706172224379_Increase column lengths for VerseAnalysisWord.resx">
       <DependentUpon>201706172224379_Increase column lengths for VerseAnalysisWord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706172247517_Move decorators into VerseAnalysisWordPart.resx">
+      <DependentUpon>201706172247517_Move decorators into VerseAnalysisWordPart.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

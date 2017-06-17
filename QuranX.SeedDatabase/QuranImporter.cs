@@ -176,16 +176,20 @@ namespace QuranX.SeedDatabase
                     Arabic = verse.Element("arabicText").Value,
                     Node = verse
                 };
-            int lastChapter = -1;
+            int previousChapterNumber = -1;
+            int previousVerseNumber = -1;
             foreach (var verseInfo in verseNodes)
             {
-                if (verseInfo.Chapter != lastChapter)
+                if (verseInfo.Chapter != previousChapterNumber)
                 {
-                    lastChapter = verseInfo.Chapter;
-                    Console.WriteLine();
-                    Console.Write(lastChapter);
+                    previousChapterNumber = verseInfo.Chapter;
+                    Console.WriteLine(previousVerseNumber);
+                    Console.Write(previousChapterNumber + ": ");
                 }
-                if (verseInfo.Verse % 10 == 0)
+                previousVerseNumber = verseInfo.Verse;
+                if (verseInfo.Verse % 50 == 0)
+                    Console.Write(verseInfo.Verse);
+                else if (verseInfo.Verse % 5 == 0)
                     Console.Write(".");
                 using (var objectSpace = new ObjectSpace())
                 {
@@ -238,26 +242,14 @@ namespace QuranX.SeedDatabase
                 int index = int.Parse(partNode.Attribute("index").Value);
                 string type = partNode.Element("type").Value;
                 string root = partNode?.Element("root")?.Value;
+                string decorators = string.Join("｜",
+                    partNode.Descendants("decorator").Select(x => x.Value).ToArray());
                 var analysisWordPart = new VerseAnalysisWordPart(
                     index: index,
                     type: type,
                     root: root,
-                    decorators: null);
+                    decorators: decorators);
                 verseAnalysisWord.Parts.Add(analysisWordPart);
-                ImportAnalysisWordPartDecorators(
-                    analysisWordPart: analysisWordPart,
-                    decorators: partNode.Descendants("decorator"));
-            }
-        }
-
-        private void ImportAnalysisWordPartDecorators(
-            VerseAnalysisWordPart analysisWordPart,
-            IEnumerable<XElement> decorators)
-        {
-            foreach (var decoratorNode in decorators)
-            {
-                var decorator = new VerseAnalysisWordPartDecorator(decoratorNode.Value);
-                analysisWordPart.Decorators.Add(decorator);
             }
         }
 
