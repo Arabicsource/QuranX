@@ -1,10 +1,5 @@
-﻿using QuranX.DomainClasses.Services;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QuranX.SeedDatabase
 {
@@ -20,8 +15,8 @@ namespace QuranX.SeedDatabase
             {
                 DataFolder = args[0];
                 QuranImporter.Execute(DataFolder);
-                TafsirImporter.Execute(DataFolder);
-                HadithImporter.Execute(DataFolder);
+                //TafsirImporter.Execute(DataFolder);
+                //HadithImporter.Execute(DataFolder);
                 Console.WriteLine("===========DONE=========");
                 Console.ReadLine();
             }

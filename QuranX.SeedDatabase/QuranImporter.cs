@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using System.Collections.Generic;
 
 namespace QuranX.SeedDatabase
 {
@@ -28,21 +29,6 @@ namespace QuranX.SeedDatabase
             ImportChapters();
             ImportArabic();
             ImportTranslations();
-        }
-
-        private void ClearData()
-        {
-            using (var objectSpace = new ObjectSpace())
-            {
-                Console.WriteLine("Clearing Chapters");
-                objectSpace.Database.ExecuteSqlCommand("delete from Chapters");
-                Console.WriteLine("Clearing Translators");
-                objectSpace.Database.ExecuteSqlCommand("delete from Translators");
-                Console.WriteLine("Clearing VerseTexts");
-                objectSpace.Database.ExecuteSqlCommand("delete from VerseTexts");
-                objectSpace.VerseTexts.RemoveRange(objectSpace.VerseTexts);
-                objectSpace.SaveChanges();
-            }
         }
 
         private void ImportChapters()
@@ -177,17 +163,101 @@ namespace QuranX.SeedDatabase
                     code: "Arabic",
                     name: "Arabic",
                     displayOrder: 0));
-                var xml = XDocument.Load(File.OpenText(Path.Combine(DataFolder, "CorpusQuran.xml")));
-                var verses =
-                    from chapter in xml.Document.Root.Descendants("chapter")
-                    from verse in chapter.Descendants("verse")
-                    select new VerseText(
-                        chapter: int.Parse(chapter.Attribute("index").Value),
-                        verse: int.Parse(verse.Attribute("index").Value),
-                        translatorCode: "Arabic",
-                        text: verse.Element("arabicText").Value);
-                objectSpace.VerseTexts.AddRange(verses);
                 objectSpace.SaveChanges();
+            }
+            var xml = XDocument.Load(File.OpenText(Path.Combine(DataFolder, "CorpusQuran.xml")));
+            var verseNodes =
+                from chapter in xml.Document.Root.Descendants("chapter")
+                from verse in chapter.Descendants("verse")
+                select new
+                {
+                    Chapter = int.Parse(chapter.Attribute("index").Value),
+                    Verse = int.Parse(verse.Attribute("index").Value),
+                    Arabic = verse.Element("arabicText").Value,
+                    Node = verse
+                };
+            int lastChapter = -1;
+            foreach (var verseInfo in verseNodes)
+            {
+                if (verseInfo.Chapter != lastChapter)
+                {
+                    lastChapter = verseInfo.Chapter;
+                    Console.WriteLine();
+                    Console.Write(lastChapter);
+                }
+                if (verseInfo.Verse % 10 == 0)
+                    Console.Write(".");
+                using (var objectSpace = new ObjectSpace())
+                {
+                    var verse = new VerseText(
+                    chapter: verseInfo.Chapter,
+                    verse: verseInfo.Verse,
+                    translatorCode: "Arabic",
+                    text: verseInfo.Arabic);
+                    objectSpace.VerseTexts.Add(verse);
+                    ImportAnalysisWords(
+                        objectSpace: objectSpace,
+                        verse: verse,
+                        wordNodes: verseInfo.Node.Descendants("word"));
+                    objectSpace.SaveChanges();
+                }
+            }
+            Console.WriteLine();
+        }
+
+        private void ImportAnalysisWords(
+            ObjectSpace objectSpace,
+            VerseText verse,
+            IEnumerable<XElement> wordNodes)
+        {
+            foreach (XElement wordNode in wordNodes)
+            {
+                int index = int.Parse(wordNode.Attribute("index").Value);
+                string buckwalter = wordNode.Element("buckwalter").Value;
+                string english = wordNode.Element("english").Value;
+                var verseAnalysisWord = new VerseAnalysisWord(
+                    chapter: verse.Chapter,
+                    verse: verse.Verse,
+                    index: index,
+                    english: english,
+                    buckwalter: buckwalter,
+                    parts: null);
+                objectSpace.VerseAnalysisWords.Add(verseAnalysisWord);
+                ImportAnalysisWordParts(
+                    verseAnalysisWord: verseAnalysisWord,
+                    partNodes: wordNode.Descendants("wordPart"));
+            }
+        }
+
+        private void ImportAnalysisWordParts(
+            VerseAnalysisWord verseAnalysisWord,
+            IEnumerable<XElement> partNodes)
+        {
+            foreach (XElement partNode in partNodes)
+            {
+                int index = int.Parse(partNode.Attribute("index").Value);
+                string type = partNode.Element("type").Value;
+                string root = partNode?.Element("root")?.Value;
+                var analysisWordPart = new VerseAnalysisWordPart(
+                    index: index,
+                    type: type,
+                    root: root,
+                    decorators: null);
+                verseAnalysisWord.Parts.Add(analysisWordPart);
+                ImportAnalysisWordPartDecorators(
+                    analysisWordPart: analysisWordPart,
+                    decorators: partNode.Descendants("decorator"));
+            }
+        }
+
+        private void ImportAnalysisWordPartDecorators(
+            VerseAnalysisWordPart analysisWordPart,
+            IEnumerable<XElement> decorators)
+        {
+            foreach (var decoratorNode in decorators)
+            {
+                var decorator = new VerseAnalysisWordPartDecorator(decoratorNode.Value);
+                analysisWordPart.Decorators.Add(decorator);
             }
         }
 
@@ -235,5 +305,24 @@ namespace QuranX.SeedDatabase
                 }
             }
         }
+
+        private void ClearData()
+        {
+            using (var objectSpace = new ObjectSpace())
+            {
+                Console.WriteLine("Clearing Chapters");
+                objectSpace.Database.ExecuteSqlCommand("delete from Chapters");
+                Console.WriteLine("Clearing Translators");
+                objectSpace.Database.ExecuteSqlCommand("delete from Translators");
+                Console.WriteLine("Clearing VerseTexts");
+                objectSpace.Database.ExecuteSqlCommand("delete from VerseTexts");
+                Console.WriteLine("Clearing verse analyses");
+                objectSpace.Database.ExecuteSqlCommand("delete from VerseAnalysisWords");
+
+                objectSpace.SaveChanges();
+            }
+        }
+
+
     }
 }

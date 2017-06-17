@@ -13,6 +13,7 @@ namespace QuranX.DomainClasses.Services
         public DbSet<HadithCollector> HadithCollectors { get; set; }
         public DbSet<HadithReferenceDefinition> HadithReferenceDefinitions { get; set; }
         public DbSet<Hadith> Hadiths { get; set; }
+        public DbSet<VerseAnalysisWord> VerseAnalysisWords { get; set; }
 
         public ObjectSpace() : base("QuranX") { }
 
@@ -25,6 +26,14 @@ namespace QuranX.DomainClasses.Services
                 .WillCascadeOnDelete();
             modelBuilder.Entity<Hadith>()
                 .HasMany(x => x.VerseReferences)
+                .WithOptional()
+                .WillCascadeOnDelete();
+            modelBuilder.Entity<VerseAnalysisWord>()
+                .HasMany(x => x.Parts)
+                .WithOptional()
+                .WillCascadeOnDelete();
+            modelBuilder.Entity<VerseAnalysisWordPart>()
+                .HasMany(x => x.Decorators)
                 .WithOptional()
                 .WillCascadeOnDelete();
         }
