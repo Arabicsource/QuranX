@@ -183,7 +183,7 @@ namespace QuranX.SeedDatabase
                 if (verseInfo.Chapter != previousChapterNumber)
                 {
                     previousChapterNumber = verseInfo.Chapter;
-                    Console.WriteLine(previousVerseNumber);
+                    Console.WriteLine(" (Total " + previousVerseNumber + " verses)");
                     Console.Write(previousChapterNumber + ": ");
                 }
                 previousVerseNumber = verseInfo.Verse;
