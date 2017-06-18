@@ -5,6 +5,11 @@ namespace QuranX.DomainClasses.Services
 {
     public class ObjectSpace : DbContext
     {
+#if DEBUG
+        const string ConnectionString = "QuranXLocalDB";
+#else
+        const string ConnectionString = "QuranXLiveDB";
+#endif
         public DbSet<Chapter> Chapters { get; set; }
         public DbSet<Translator> Translators { get; set; }
         public DbSet<VerseText> VerseTexts { get; set; }
@@ -15,7 +20,7 @@ namespace QuranX.DomainClasses.Services
         public DbSet<Hadith> Hadiths { get; set; }
         public DbSet<VerseAnalysisWord> VerseAnalysisWords { get; set; }
 
-        public ObjectSpace() : base("QuranX") { }
+        public ObjectSpace() : base(ConnectionString) { }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
