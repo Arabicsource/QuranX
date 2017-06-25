@@ -97,6 +97,10 @@
     <Compile Include="Migrations\201706172247517_Move decorators into VerseAnalysisWordPart.Designer.cs">
       <DependentUpon>201706172247517_Move decorators into VerseAnalysisWordPart.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706251602139_Make ChapterRepository in-memory.cs" />
+    <Compile Include="Migrations\201706251602139_Make ChapterRepository in-memory.Designer.cs">
+      <DependentUpon>201706251602139_Make ChapterRepository in-memory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Chapter.cs" />
     <Compile Include="Model\Commentary.cs" />
@@ -151,6 +155,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706172247517_Move decorators into VerseAnalysisWordPart.resx">
       <DependentUpon>201706172247517_Move decorators into VerseAnalysisWordPart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706251602139_Make ChapterRepository in-memory.resx">
+      <DependentUpon>201706251602139_Make ChapterRepository in-memory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

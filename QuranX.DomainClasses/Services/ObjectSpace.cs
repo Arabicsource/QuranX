@@ -10,7 +10,6 @@ namespace QuranX.DomainClasses.Services
 #else
         const string ConnectionString = "QuranXLiveDB";
 #endif
-        public DbSet<Chapter> Chapters { get; set; }
         public DbSet<Translator> Translators { get; set; }
         public DbSet<VerseText> VerseTexts { get; set; }
         public DbSet<Commentator> Commentators { get; set; }
