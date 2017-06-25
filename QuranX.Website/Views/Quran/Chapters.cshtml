@@ -1,0 +1,14 @@
+﻿@using Chapter = QuranX.DomainClasses.Model.Chapter
+@model IEnumerable<Chapter>
+@{
+    ViewBag.Title = "Chapters";
+}
+
+<h2>Chapters</h2>
+
+@foreach(Chapter chapter in @Model)
+{
+    <div>
+        @chapter.Number @chapter.EnglishName
+    </div>
+}
