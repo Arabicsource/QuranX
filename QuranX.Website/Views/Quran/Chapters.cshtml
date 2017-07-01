@@ -4,11 +4,17 @@
     ViewBag.Title = "Chapters";
 }
 
-<h2>Chapters</h2>
+<hgroup>
+    <h1>The Quran</h1>
+    <h2>Chapters</h2>
+</hgroup>
 
-@foreach(Chapter chapter in @Model)
-{
-    <div>
-        @chapter.Number @chapter.EnglishName
-    </div>
-}
+<div class="chapter-list">
+    @foreach (Chapter chapter in @Model)
+    {
+        <div class="col-xs-12 col-sm-6 col-lg-4">
+            <span class="chapter-number">@chapter.Number</span>
+            <a href="@(chapter.Number).1">@chapter.EnglishName</a>
+        </div>
+    }
+</div>

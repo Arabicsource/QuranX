@@ -16,3 +16,11 @@ textarea {
     max-width: 280px;
 }
 
+.chapter-list .chapter-number {
+    min-width: 3em;
+    text-align: right;
+    display: inline-block;
+}
+    .chapter-list .chapter-number::after {
+        content: " -";
+    }
