@@ -1,21 +1,21 @@
 ﻿using QuranX.DomainClasses.Services;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace QuranX.Website.Controllers
 {
-    public class QuranController : Controller
+    public class ChapterController : Controller
     {
         private readonly ChapterRepository ChapterRepository;
 
-        public QuranController(ChapterRepository chapterRepository)
+        public ChapterController(ChapterRepository chapterRepository)
         {
             ChapterRepository = chapterRepository;
         }
 
-        // GET: Quran
-        public ActionResult Chapters()
+        public ActionResult Index()
         {
-            return View(ChapterRepository.All());
+            return View(ChapterRepository.All().OrderBy(x => x.Number));
         }
     }
 }

@@ -16,12 +16,7 @@ namespace QuranX.Website
             routes.MapRoute(
                 name: "",
                 url: "",
-                defaults: new { Controller = "Quran", Action = "Chapters" });
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+                defaults: new { Controller = "Chapter", Action = "Index" });
         }
     }
 }
