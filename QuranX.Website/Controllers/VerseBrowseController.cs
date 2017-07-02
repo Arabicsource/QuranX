@@ -8,7 +8,7 @@ namespace QuranX.Website.Controllers
 {
     public class VerseBrowseController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(int chapter, int firstVerse, int lastVerse)
         {
             return View();
         }

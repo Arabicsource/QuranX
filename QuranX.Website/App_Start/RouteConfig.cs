@@ -19,13 +19,8 @@ namespace QuranX.Website
                 defaults: new { Controller = "Chapter", Action = "Index" });
 
             routes.MapRoute(
-                name: "",
-                url: "1.1",
-                defaults: new { Controller = "VerseBrowse", Action = "Index" });
-
-            routes.MapRoute(
                     name: "",
-                    url: "{Chapter}.{Verse}-{LastVerse}",
+                    url: "{Chapter}.{FirstVerse}-{LastVerse}",
                     defaults: new 
                     {
                         Controller = "VerseBrowse",
@@ -34,14 +29,14 @@ namespace QuranX.Website
                     constraints: new
                     {
                         Chapter = @"\d+",
-                        Verse = @"\d+",
+                        FirstVerse = @"\d+",
                         LastVerse = @"\d+"
                     }
                 );
 
             routes.MapRoute(
                     name: "",
-                    url: "{Chapter}.{Verse}",
+                    url: "{Chapter}.{FirstVerse}",
                     defaults: new
                     {
                         Controller = "VerseBrowse",
@@ -51,7 +46,7 @@ namespace QuranX.Website
                     constraints: new
                     {
                         Chapter = @"\d+",
-                        Verse = @"\d+"
+                        FirstVerse = @"\d+"
                     }
                 );
 
