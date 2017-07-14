@@ -102,22 +102,24 @@
       <DependentUpon>201706251602139_Make ChapterRepository in-memory.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Model\Chapter.cs" />
-    <Compile Include="Model\Commentary.cs" />
-    <Compile Include="Model\Commentator.cs" />
-    <Compile Include="Model\Hadith.cs" />
-    <Compile Include="Model\HadithCollector.cs" />
-    <Compile Include="Model\HadithReference.cs" />
-    <Compile Include="Model\HadithReferenceDefinition.cs" />
-    <Compile Include="Model\HadithVerseReference.cs" />
-    <Compile Include="Model\Translator.cs" />
-    <Compile Include="Model\VerseAnalysisWord.cs" />
-    <Compile Include="Model\VerseAnalysisWordPart.cs" />
-    <Compile Include="Model\VerseText.cs" />
+    <Compile Include="Models\Chapter.cs" />
+    <Compile Include="Models\Commentary.cs" />
+    <Compile Include="Models\Commentator.cs" />
+    <Compile Include="Models\Hadith.cs" />
+    <Compile Include="Models\HadithCollector.cs" />
+    <Compile Include="Models\HadithReference.cs" />
+    <Compile Include="Models\HadithReferenceDefinition.cs" />
+    <Compile Include="Models\HadithVerseReference.cs" />
+    <Compile Include="Models\Translator.cs" />
+    <Compile Include="Models\VerseAnalysisWord.cs" />
+    <Compile Include="Models\VerseAnalysisWordPart.cs" />
+    <Compile Include="Models\VerseText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ChapterRepository.cs" />
     <Compile Include="Services\ObjectSpace.cs" />
-    <Compile Include="Services\_ServiceRegistration.cs" />
+    <Compile Include="ServicesRegistration.cs" />
+    <Compile Include="ViewModels\VerseRange.cs" />
+    <Compile Include="ViewModels\VerseViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -159,6 +161,9 @@
     <EmbeddedResource Include="Migrations\201706251602139_Make ChapterRepository in-memory.resx">
       <DependentUpon>201706251602139_Make ChapterRepository in-memory.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Builders\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Practices.Unity;
 using QuranX.DomainClasses.Services;
+using QuranX.DomainClasses;
 
 namespace QuranX.App_Start
 {
@@ -32,15 +33,15 @@ namespace QuranX.App_Start
         /// change the defaults), as Unity allows resolving a concrete type even if it was not previously registered.</remarks>
         public static void RegisterTypes(IUnityContainer container)
         {
-            ServiceRegistration.Register(new ServiceRegistrationCallback(container));
+            ServicesRegistration.Register(new ServicesRegistrationCallback(container));
         }
     }
 
-    class ServiceRegistrationCallback : IServiceRegistrationCallback
+    class ServicesRegistrationCallback : IServicesRegistrationCallback
     {
         private readonly IUnityContainer Container;
 
-        public ServiceRegistrationCallback(IUnityContainer container)
+        public ServicesRegistrationCallback(IUnityContainer container)
         {
             this.Container = container;
         }

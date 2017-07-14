@@ -10,6 +10,7 @@ namespace QuranX.Website.Controllers
     {
         public ActionResult Index(int chapter, int firstVerse, int lastVerse)
         {
+
             return View();
         }
     }

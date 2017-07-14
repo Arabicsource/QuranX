@@ -1,4 +1,4 @@
-﻿using QuranX.DomainClasses.Model;
+﻿using QuranX.DomainClasses.Models;
 using System.Collections.Generic;
 using System.Linq;
 
