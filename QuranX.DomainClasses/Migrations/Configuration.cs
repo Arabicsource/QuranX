@@ -1,4 +1,4 @@
-using QuranX.DomainClasses.Models;
+using QuranX.DomainClasses.Entities;
 using System.Data.Entity.Migrations;
 using QuranX.DomainClasses.Services;
 using System;

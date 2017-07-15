@@ -1,7 +1,9 @@
-﻿
+﻿@model IEnumerable<QuranX.DomainClasses.Models.Verse>
 @{
     ViewBag.Title = "Browse";
 }
 
 <h2>Browse</h2>
+
+@Html.Partial("VersesView", Model)
 

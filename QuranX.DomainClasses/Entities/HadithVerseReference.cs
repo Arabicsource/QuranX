@@ -1,4 +1,4 @@
-﻿namespace QuranX.DomainClasses.Models
+﻿namespace QuranX.DomainClasses.Entities
 {
     public class HadithVerseReference
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace QuranX.DomainClasses.Models
+namespace QuranX.DomainClasses.Entities
 {
     public class VerseAnalysisWordPart
     {

@@ -1,4 +1,4 @@
-﻿namespace QuranX.DomainClasses.ViewModels
+﻿namespace QuranX.DomainClasses.Models
 {
     public class VerseRange
     {

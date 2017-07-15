@@ -1,0 +1,39 @@
+﻿@model IEnumerable<QuranX.DomainClasses.Models.Verse>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.VerseNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TafsirCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HadithCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RootWordCount)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.VerseNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TafsirCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HadithCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RootWordCount)
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,4 +1,5 @@
-﻿using QuranX.DomainClasses.Services;
+﻿using QuranX.DomainClasses.Builders;
+using QuranX.DomainClasses.Services;
 
 namespace QuranX.DomainClasses
 {
@@ -14,6 +15,7 @@ namespace QuranX.DomainClasses
         {
             registration.RegisterScoped<ObjectSpace, ObjectSpace>();
             registration.RegisterScoped<IChapterRepository, ChapterRepository>();
+            registration.RegisterScoped<IVerseViewBuilder, VerseViewBuilder>();
         }
     }
 

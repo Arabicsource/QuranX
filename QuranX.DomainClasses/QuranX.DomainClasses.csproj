@@ -39,6 +39,9 @@
     <Reference Include="LinqKit, Version=1.1.9.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
       <HintPath>..\packages\LinqKit.1.1.9.0\lib\net45\LinqKit.dll</HintPath>
     </Reference>
+    <Reference Include="LinqKit.EntityFramework, Version=1.1.9.0, Culture=neutral, PublicKeyToken=b6c8cfc71f7a6a80, processorArchitecture=MSIL">
+      <HintPath>..\packages\LinqKit.EntityFramework.1.1.9.0\lib\net45\LinqKit.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -53,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\VerseViewBuilder.cs" />
     <Compile Include="Migrations\201706041753389_Translators and verses.cs" />
     <Compile Include="Migrations\201706041753389_Translators and verses.Designer.cs">
       <DependentUpon>201706041753389_Translators and verses.cs</DependentUpon>
@@ -102,24 +106,25 @@
       <DependentUpon>201706251602139_Make ChapterRepository in-memory.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Chapter.cs" />
-    <Compile Include="Models\Commentary.cs" />
-    <Compile Include="Models\Commentator.cs" />
-    <Compile Include="Models\Hadith.cs" />
-    <Compile Include="Models\HadithCollector.cs" />
-    <Compile Include="Models\HadithReference.cs" />
-    <Compile Include="Models\HadithReferenceDefinition.cs" />
-    <Compile Include="Models\HadithVerseReference.cs" />
-    <Compile Include="Models\Translator.cs" />
-    <Compile Include="Models\VerseAnalysisWord.cs" />
-    <Compile Include="Models\VerseAnalysisWordPart.cs" />
-    <Compile Include="Models\VerseText.cs" />
+    <Compile Include="Entities\Chapter.cs" />
+    <Compile Include="Entities\Commentary.cs" />
+    <Compile Include="Entities\Commentator.cs" />
+    <Compile Include="Entities\Hadith.cs" />
+    <Compile Include="Entities\HadithCollector.cs" />
+    <Compile Include="Entities\HadithReference.cs" />
+    <Compile Include="Entities\HadithReferenceDefinition.cs" />
+    <Compile Include="Entities\HadithVerseReference.cs" />
+    <Compile Include="Entities\Translator.cs" />
+    <Compile Include="Entities\VerseAnalysisWord.cs" />
+    <Compile Include="Entities\VerseAnalysisWordPart.cs" />
+    <Compile Include="Entities\VerseText.cs" />
+    <Compile Include="Models\VerseTranslation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ChapterRepository.cs" />
     <Compile Include="Services\ObjectSpace.cs" />
     <Compile Include="ServicesRegistration.cs" />
-    <Compile Include="ViewModels\VerseRange.cs" />
-    <Compile Include="ViewModels\VerseViewModel.cs" />
+    <Compile Include="Models\VerseRange.cs" />
+    <Compile Include="Models\Verse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -162,8 +167,6 @@
       <DependentUpon>201706251602139_Make ChapterRepository in-memory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Builders\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

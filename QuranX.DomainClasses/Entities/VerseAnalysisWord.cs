@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QuranX.DomainClasses.Models
+namespace QuranX.DomainClasses.Entities
 {
     public class VerseAnalysisWord
     {

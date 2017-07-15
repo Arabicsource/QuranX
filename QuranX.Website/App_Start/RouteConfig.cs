@@ -18,35 +18,34 @@ namespace QuranX.Website
                 url: "",
                 defaults: new { Controller = "Chapter", Action = "Index" });
 
-            routes.MapRoute(
-                    name: "",
-                    url: "{Chapter}.{FirstVerse}-{LastVerse}",
-                    defaults: new 
-                    {
-                        Controller = "VerseBrowse",
-                        Action = "Index"
-                    },
-                    constraints: new
-                    {
-                        Chapter = @"\d+",
-                        FirstVerse = @"\d+",
-                        LastVerse = @"\d+"
-                    }
-                );
+            //routes.MapRoute(
+            //        name: "",
+            //        url: "{Chapter}.{FirstVerse}-{LastVerse}",
+            //        defaults: new 
+            //        {
+            //            Controller = "VerseBrowse",
+            //            Action = "Index"
+            //        },
+            //        constraints: new
+            //        {
+            //            Chapter = @"\d+",
+            //            FirstVerse = @"\d+",
+            //            LastVerse = @"\d+"
+            //        }
+            //    );
 
             routes.MapRoute(
                     name: "",
-                    url: "{Chapter}.{FirstVerse}",
+                    url: "{Chapter}.{Verse}",
                     defaults: new
                     {
                         Controller = "VerseBrowse",
                         Action = "Index",
-                        LastVerse = -1
                     },
                     constraints: new
                     {
                         Chapter = @"\d+",
-                        FirstVerse = @"\d+"
+                        Verse = @"\d+"
                     }
                 );
 
