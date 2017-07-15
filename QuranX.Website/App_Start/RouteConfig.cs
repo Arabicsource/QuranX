@@ -45,6 +45,7 @@ namespace QuranX.Website
                     constraints: new
                     {
                         Chapter = @"\d+",
+
                         Verse = @"\d+"
                     }
                 );
