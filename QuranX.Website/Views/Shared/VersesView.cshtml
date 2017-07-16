@@ -1,56 +1,56 @@
 ﻿@model IEnumerable<QuranX.DomainClasses.Models.Verse>
 @foreach (var item in Model)
 {
-    <div id="contents">
-        <hgroup itemprop="name">
-            <h2>
-                @item.Chapter.Number:@item.VerseNumber
-                @item.Chapter.EnglishName - @item.Chapter.ArabicName
-            </h2>
-        </hgroup>
-        <div id="VersesContainer">
-            <article class="verse">
-                <a name="@(item.Chapter.Number).@item.VerseNumber">
-                    <span class="verseReference" itemprop="articleSection">@(item.Chapter.Number).@item.VerseNumber</span>
-                </a>
-                <a href="/Analysis/@(item.Chapter.Number).@item.VerseNumber">
+    <hgroup itemprop="name">
+        <h2>
+            @item.Chapter.Number:@item.VerseNumber
+        </h2>
+        <h3>
+            @item.Chapter.EnglishName - @item.Chapter.ArabicName
+        </h3>
+    </hgroup>
+    <div id="VersesContainer">
+        <article class="verse">
+            <a name="@(item.Chapter.Number).@item.VerseNumber">
+                <span class="verseReference" itemprop="articleSection">@(item.Chapter.Number).@item.VerseNumber</span>
+            </a>
+            <a href="/Analysis/@(item.Chapter.Number).@item.VerseNumber">
+                <dl class="countAndLabel">
+                    <dd>
+                        @item.RootWordCount
+                    </dd>
+                    <dt>Roots</dt>
+                </dl>
+            </a>
+            @if (item.TafsirCount > 0)
+            {
+                <a href="/Tafsirs/@(item.Chapter.Number).@item.VerseNumber">
                     <dl class="countAndLabel">
                         <dd>
-                            @item.RootWordCount
+                            @item.TafsirCount
                         </dd>
-                        <dt>Roots</dt>
+                        <dt>Tafsirs</dt>
                     </dl>
                 </a>
-                @if (item.TafsirCount > 0)
+            }
+            @if (item.HadithCount > 0)
+            {
+                <a href="/Hadiths/@(item.Chapter.Number).@item.VerseNumber">
+                    <dl class="countAndLabel">
+                        <dd>
+                            @item.HadithCount
+                        </dd>
+                        <dt>Hadiths</dt>
+                    </dl>
+                </a>
+            }
+            <dl class="translations" itemprop="articleBody">
+                @foreach (var verseText in item.Translations)
                 {
-                    <a href="/Tafsirs/@(item.Chapter.Number).@item.VerseNumber">
-                        <dl class="countAndLabel">
-                            <dd>
-                                @item.TafsirCount
-                            </dd>
-                            <dt>Tafsirs</dt>
-                        </dl>
-                    </a>
+                    <dt>@verseText.Translator.Name</dt>
+                    <dd class="highlightable">@verseText.Translation.Text</dd>
                 }
-                @if (item.HadithCount > 0)
-                {
-                    <a href="/Hadiths/@(item.Chapter.Number).@item.VerseNumber">
-                        <dl class="countAndLabel">
-                            <dd>
-                                @item.HadithCount
-                            </dd>
-                            <dt>Hadiths</dt>
-                        </dl>
-                    </a>
-                }
-                <dl class="translations" itemprop="articleBody">
-                    @foreach (var verseText in item.Translations)
-                    {
-                        <dt>@verseText.Translator.Name</dt>
-                        <dd class="highlightable">@verseText.Translation.Text</dd>
-                    }
-                </dl>
-            </article>
-        </div>
+            </dl>
+        </article>
     </div>
 }
