@@ -178,8 +178,6 @@ namespace QuranX.SeedDatabase
         {
             using (var objectSpace = new ObjectSpace())
             {
-                Console.WriteLine("Clearing Chapters");
-                objectSpace.Database.ExecuteSqlCommand("delete from Chapters");
                 Console.WriteLine("Clearing Translators");
                 objectSpace.Database.ExecuteSqlCommand("delete from Translators");
                 Console.WriteLine("Clearing VerseTexts");
