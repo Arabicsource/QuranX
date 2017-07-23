@@ -68,7 +68,8 @@ namespace QuranX.DomainClasses.Builders
 				forwardChapterNumber: nextVerse.Chapter,
 				forwardVerseNumber: nextVerse.FirstVerse,
 				backChapterNumber: previousVerse.Chapter,
-				backVerseNumber: previousVerse.FirstVerse);
+				backVerseNumber: previousVerse.FirstVerse,
+				availableVerses: availableVerses);
 		}
 	}
 }

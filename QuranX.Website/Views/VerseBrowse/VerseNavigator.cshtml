@@ -2,13 +2,52 @@
 
 <div class="verse-navigator">
     <div class="chapters">
-        <select>
+        <select id="verse-navigator-chapter-select">
             @foreach (var chapter in Model.Chapters)
             {
                 string isSelected = Model.ChapterNumber == chapter.Number ? "selected" : "";
-               <option @isSelected>@chapter.Number - @chapter.EnglishName</option>
+                <option @isSelected value="@chapter.Number">@chapter.Number - @chapter.EnglishName</option>
             }
         </select>
     </div>
+    <div class="select-verse">
+        <select id="verse-navigator-verse-select">
+            @foreach(int verse in Enumerable.Range(1, Model.Chapters[Model.ChapterNumber].NumberOfVerses))
+            {
+               string isSelected = Model.VerseNumber == verse ? "selected" : "";
+               <option @isSelected>@verse</option>
+            }
+        </select>
+    </div>
+
+    <script>
+        var chapters = [];
+        function createChapterVersesArray() {
+            @foreach(var group in Model.VersesByChapter)
+            {
+                string verses = string.Join(",", group.Select(x => x.ToString()));
+                @Html.Raw($"chapters[{group.Key}] = [{verses}];");
+            }
+        }
+
+        function populateVerses() {
+            var chapterNumber = $('#verse-navigator-chapter-select').val();
+            var verseSelector = $('#verse-navigator-verse-select');
+            verseSelector.find('option').remove().end();
+            $.each(chapters[chapterNumber], function (index, value) {
+                var isSelected = '';
+                if (chapterNumber == @Model.ChapterNumber && value == @Model.VerseNumber) {
+                    isSelected = 'selected';
+                }
+                verseSelector.append('<option ' + isSelected + '>' + value + '</option>');
+            });
+        }
+
+        $(document).ready(function () {
+            createChapterVersesArray();
+            $('#verse-navigator-chapter-select').change(populateVerses);
+            populateVerses();
+        });
+    </script>
 </div>
 

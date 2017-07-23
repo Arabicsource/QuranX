@@ -1,6 +1,9 @@
 ﻿using QuranX.DomainClasses.Models;
 using QuranX.DomainClasses.Services;
 using System.Linq;
+using System;
+using System.Collections.Generic;
+using QuranX.DomainClasses.Entities;
 
 namespace QuranX.DomainClasses.Builders
 {
@@ -35,15 +38,22 @@ namespace QuranX.DomainClasses.Builders
 
 		private VerseRange[] BuildCachedValue()
 		{
-			VerseRange[] result = (
-				ChapterRepository.All()
-				.SelectMany(chapter =>
+			var result = new List<VerseRange>();
+			for(int chapterNumber = 1; chapterNumber <= 114; chapterNumber++)
+			{
+				Chapter chapter = ChapterRepository.Get(chapterNumber);
+				VerseRange[] verses =
 					Enumerable.Range(1, chapter.NumberOfVerses)
-						.Select(v => new VerseRange(chapter.Number, v, v)
-					)
-				)
-			).ToArray();
-			return result;
+					.Select(x => new VerseRange(chapterNumber, x, x))
+					.ToArray();
+				result.AddRange(verses);
+			}
+			return result.ToArray();
+		}
+
+		private object List<T>()
+		{
+			throw new NotImplementedException();
 		}
 	}
 }
