@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.26711.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RationalizingIslam.DocumentModel", "RationalizingIslam.DocumentModel\RationalizingIslam.DocumentModel.csproj", "{32BD00B9-5689-45D5-BA1A-376EA8BE22EC}"
 EndProject
@@ -21,6 +21,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuranX.Website", "QuranX.Website\QuranX.Website.csproj", "{932074DD-C93F-443E-BAEA-B998E7F026FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuranX.Website.Tests", "QuranX.Website.Tests\QuranX.Website.Tests.csproj", "{DFAF9309-375D-467B-B8A2-EB3DB4847DB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuranX.DomainClasses.Tests", "QuranX.DomainClasses.Tests\QuranX.DomainClasses.Tests.csproj", "{3215D7D6-E2B0-4225-B200-3BF43637CD1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -102,8 +104,23 @@ Global
 		{DFAF9309-375D-467B-B8A2-EB3DB4847DB2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{DFAF9309-375D-467B-B8A2-EB3DB4847DB2}.Release|x86.ActiveCfg = Release|Any CPU
 		{DFAF9309-375D-467B-B8A2-EB3DB4847DB2}.Release|x86.Build.0 = Release|Any CPU
+		{3215D7D6-E2B0-4225-B200-3BF43637CD1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3215D7D6-E2B0-4225-B200-3BF43637CD1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3215D7D6-E2B0-4225-B200-3BF43637CD1C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3215D7D6-E2B0-4225-B200-3BF43637CD1C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3215D7D6-E2B0-4225-B200-3BF43637CD1C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3215D7D6-E2B0-4225-B200-3BF43637CD1C}.Debug|x86.Build.0 = Debug|Any CPU
+		{3215D7D6-E2B0-4225-B200-3BF43637CD1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3215D7D6-E2B0-4225-B200-3BF43637CD1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3215D7D6-E2B0-4225-B200-3BF43637CD1C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3215D7D6-E2B0-4225-B200-3BF43637CD1C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3215D7D6-E2B0-4225-B200-3BF43637CD1C}.Release|x86.ActiveCfg = Release|Any CPU
+		{3215D7D6-E2B0-4225-B200-3BF43637CD1C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B2C8CB92-2CEA-4073-8973-40207923B969}
 	EndGlobalSection
 EndGlobal

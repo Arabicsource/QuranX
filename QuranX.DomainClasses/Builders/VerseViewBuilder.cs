@@ -1,8 +1,6 @@
-﻿
-using QuranX.DomainClasses.Models;
+﻿using QuranX.DomainClasses.Models;
 using QuranX.DomainClasses.Services;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;

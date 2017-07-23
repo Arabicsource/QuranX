@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\VerseNavigatorBuilder.cs" />
     <Compile Include="Builders\VerseViewBuilder.cs" />
     <Compile Include="Migrations\201706041753389_Translators and verses.cs" />
     <Compile Include="Migrations\201706041753389_Translators and verses.Designer.cs">
@@ -118,6 +119,7 @@
     <Compile Include="Entities\VerseAnalysisWord.cs" />
     <Compile Include="Entities\VerseAnalysisWordPart.cs" />
     <Compile Include="Entities\VerseText.cs" />
+    <Compile Include="Models\VerseNavigator.cs" />
     <Compile Include="Models\VerseTranslation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ChapterRepository.cs" />
