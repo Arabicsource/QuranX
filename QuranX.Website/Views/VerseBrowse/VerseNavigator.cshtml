@@ -1,0 +1,14 @@
+﻿@model QuranX.DomainClasses.Models.VerseNavigator
+
+<div class="verse-navigator">
+    <div class="chapters">
+        <select>
+            @foreach (var chapter in Model.Chapters)
+            {
+                string isSelected = Model.ChapterNumber == chapter.Number ? "selected" : "";
+               <option @isSelected>@chapter.Number - @chapter.EnglishName</option>
+            }
+        </select>
+    </div>
+</div>
+

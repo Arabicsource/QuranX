@@ -1,9 +1,14 @@
-﻿@model IEnumerable<QuranX.DomainClasses.Models.Verse>
+﻿@model QuranX.Website.ViewModels.VerseBrowseViewModel
 @{
-    ViewBag.Title = "Browse";
+   ViewBag.Title = "Browse";
 }
 
 <h1>The Quran</h1>
 
-@Html.Partial("VersesView", Model)
-
+@Html.Partial("VersesView", Model.Verses)
+@{ 
+   Html.RenderAction("VerseNavigator", "VerseBrowse", new
+   {
+       verseNavigator = Model.VerseNavigator
+   });
+}

@@ -32,9 +32,9 @@ namespace QuranX.DomainClasses.Models
 
 		public static bool operator==(VerseRange x, VerseRange y)
 		{
-			if (x == null && y == null)
+			if (Object.Equals(x, null) && Object.Equals(y, null))
 				return true;
-			if (x == null)
+			if (Object.Equals(x, null))
 				return false;
 			return x.Equals(y);
 		}
@@ -51,6 +51,9 @@ namespace QuranX.DomainClasses.Models
 
 		int IComparable<VerseRange>.CompareTo(VerseRange other)
 		{
+			if (Object.Equals(other, null))
+				return 1;
+
 			if (Chapter < other.Chapter)
 				return -1;
 			if (Chapter > other.Chapter)

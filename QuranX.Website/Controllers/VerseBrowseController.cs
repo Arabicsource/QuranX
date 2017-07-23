@@ -1,5 +1,6 @@
 ﻿using QuranX.DomainClasses.Builders;
 using QuranX.DomainClasses.Models;
+using QuranX.Website.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,19 @@ namespace QuranX.Website.Controllers
 {
 	public class VerseBrowseController : Controller
 	{
-		private IVerseViewBuilder VerseViewBuilder;
+		private readonly IVerseViewBuilder VerseViewBuilder;
+		private readonly IVerseNavigatorBuilder VerseNavigatorBuilder;
+		private readonly IVerseRangesBuilder VerseRangesBuilder;
 
-		public VerseBrowseController(IVerseViewBuilder verseViewBuilder)
+		public VerseBrowseController(
+			IVerseViewBuilder verseViewBuilder,
+			IVerseNavigatorBuilder verseNavigatorBuilder,
+			IVerseRangesBuilder verseRangesBuilder
+			)
 		{
 			VerseViewBuilder = verseViewBuilder;
+			VerseNavigatorBuilder = verseNavigatorBuilder;
+			VerseRangesBuilder = verseRangesBuilder;
 		}
 
 		public async Task<ActionResult> Index(int chapter, int verse)
@@ -24,15 +33,21 @@ namespace QuranX.Website.Controllers
 					chapter: chapter,
 					firstVerse: verse,
 					lastVerse: verse);
-			Verse[] viewModel = await VerseViewBuilder.Build(verseRange);
+			VerseRange[] quranVerseRanges = VerseRangesBuilder.BuildForQuran();
+			Verse[] verses = await VerseViewBuilder.Build(verseRange);
+			VerseNavigator verseNavigator = VerseNavigatorBuilder.Build(chapter, verse, quranVerseRanges);
+
+			var viewModel = new VerseBrowseViewModel(
+				verses: verses,
+				verseNavigator: verseNavigator);
 
 			return View(viewModel);
 		}
 
 		[ChildActionOnly]
-		public ActionResult VerseNavigator(int chapterNumber, int verseNumber)
+		public ActionResult VerseNavigator(VerseNavigator verseNavigator)
 		{
-			return PartialView("VerseNavigator");
+			return PartialView("VerseNavigator", verseNavigator);
 		}
 	}
 }
