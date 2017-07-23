@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Builders\VerseNavigatorBuilder.cs" />
     <Compile Include="Builders\VerseViewBuilder.cs" />
+    <Compile Include="Helpers\IntegerExtensions.cs" />
     <Compile Include="Migrations\201706041753389_Translators and verses.cs" />
     <Compile Include="Migrations\201706041753389_Translators and verses.Designer.cs">
       <DependentUpon>201706041753389_Translators and verses.cs</DependentUpon>

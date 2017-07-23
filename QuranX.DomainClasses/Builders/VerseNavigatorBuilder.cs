@@ -55,10 +55,10 @@ namespace QuranX.DomainClasses.Builders
 				sortedAvailableVerses.Insert(indexInSortedList, currentChapterAndVerse);
 			}
 
-			int previousIndex = (indexInSortedList - 1) % sortedAvailableVerses.Count;
+			int previousIndex = (indexInSortedList - 1).Modulo(sortedAvailableVerses.Count);
 			var previousVerse = VerseRange.FromDecimalChapterAndVerse(sortedAvailableVerses[previousIndex]);
 
-			int nextIndex = (indexInSortedList + 1) % sortedAvailableVerses.Count;
+			int nextIndex = (indexInSortedList + 1).Modulo(sortedAvailableVerses.Count);
 			var nextVerse = VerseRange.FromDecimalChapterAndVerse(sortedAvailableVerses[nextIndex]);
 
 			return new VerseNavigator(

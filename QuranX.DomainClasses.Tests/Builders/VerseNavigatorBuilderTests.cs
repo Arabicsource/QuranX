@@ -20,9 +20,9 @@ namespace QuranX.DomainClasses.Tests.Builders
 		[TestInitialize]
 		public void SetUp()
 		{
-			Verse1 = new VerseRange(2, 1, 2);
-			Verse2 = new VerseRange(2, 11, 12);
-			Verse3 = new VerseRange(2, 21, 22);
+			Verse1 = new VerseRange(2, 2, 3);
+			Verse2 = new VerseRange(2, 12, 13);
+			Verse3 = new VerseRange(2, 22, 23);
 			Verses = new VerseRange[] { Verse1, Verse2, Verse3 };
 
 			ChapterRepository = new ChapterRepository();
@@ -81,19 +81,40 @@ namespace QuranX.DomainClasses.Tests.Builders
 		[TestMethod]
 		public void Build_SetsBackVerseToLastAvailable_WhenOnOrBeforeFirstAvailable()
 		{
-			Assert.Fail();
+			var builder = new VerseNavigatorBuilder(ChapterRepository);
+			VerseNavigator result = builder.Build(Verse1.Chapter, Verse1.FirstVerse, Verses);
+			Assert.AreEqual(Verse3.Chapter, result.BackChapterNumber, "BackChapterNumber");
+			Assert.AreEqual(Verse3.FirstVerse, result.BackVerseNumber, "BackVerseNumber");
+
+			result = builder.Build(Verse1.Chapter, Verse1.FirstVerse - 1, Verses);
+			Assert.AreEqual(Verse3.Chapter, result.BackChapterNumber, "BackChapterNumber");
+			Assert.AreEqual(Verse3.FirstVerse, result.BackVerseNumber, "BackVerseNumber");
 		}
 
 		[TestMethod]
 		public void Build_SetsNextVerseToNextAvailable_WhenNotTheLastAvailable()
 		{
-			Assert.Fail();
+			var builder = new VerseNavigatorBuilder(ChapterRepository);
+			VerseNavigator result = builder.Build(Verse2.Chapter, Verse2.FirstVerse, Verses);
+			Assert.AreEqual(Verse3.Chapter, result.ForwardChapterNumber, "ForwardChapterNumber");
+			Assert.AreEqual(Verse3.FirstVerse, result.ForwardVerseNumber, "ForwardVerseNumber");
+
+			result = builder.Build(Verse2.Chapter, Verse3.FirstVerse - 1, Verses);
+			Assert.AreEqual(Verse3.Chapter, result.ForwardChapterNumber, "ForwardChapterNumber");
+			Assert.AreEqual(Verse3.FirstVerse, result.ForwardVerseNumber, "ForwardVerseNumber");
 		}
 
 		[TestMethod]
 		public void Build_SetsNextVerseToFirstAvailable_WhenOnOrAfterLastAvailable()
 		{
-			Assert.Fail();
+			var builder = new VerseNavigatorBuilder(ChapterRepository);
+			VerseNavigator result = builder.Build(Verse3.Chapter, Verse3.FirstVerse, Verses);
+			Assert.AreEqual(Verse1.Chapter, result.ForwardChapterNumber, "ForwardChapterNumber");
+			Assert.AreEqual(Verse1.FirstVerse, result.ForwardVerseNumber, "ForwardVerseNumber");
+
+			result = builder.Build(Verse3.Chapter, Verse3.FirstVerse + 1, Verses);
+			Assert.AreEqual(Verse1.Chapter, result.ForwardChapterNumber, "ForwardChapterNumber");
+			Assert.AreEqual(Verse1.FirstVerse, result.ForwardVerseNumber, "ForwardVerseNumber");
 		}
 
 	}
