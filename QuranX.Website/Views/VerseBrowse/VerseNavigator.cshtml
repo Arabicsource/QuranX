@@ -1,4 +1,6 @@
 ﻿@model QuranX.DomainClasses.Models.VerseNavigator
+@using UrlTemplates = QuranX.DomainClasses.Models.UrlTemplates;
+
 
 <div class="verse-navigator">
     <div class="chapters">
@@ -12,15 +14,21 @@
     </div>
     <div class="select-verse">
         <select id="verse-navigator-verse-select">
-            @foreach(int verse in Enumerable.Range(1, Model.Chapters[Model.ChapterNumber].NumberOfVerses))
+            @foreach(int verse in Enumerable.Range(1, Model.Chapters[Model.ChapterNumber - 1].NumberOfVerses))
             {
                string isSelected = Model.VerseNumber == verse ? "selected" : "";
                <option @isSelected>@verse</option>
             }
         </select>
+        <a href="@UrlTemplates.GetUrl(Model.UrlTemplate, Model.BackChapterNumber, Model.BackVerseNumber)">
+            <i class="glyphicon glyphicon-circle-arrow-up"/>
+        </a>
+        <a href="@UrlTemplates.GetUrl(Model.UrlTemplate, Model.ForwardChapterNumber, Model.ForwardVerseNumber)">
+            <i class="glyphicon glyphicon-circle-arrow-down"/>
+        </a>
     </div>
 
-    <script>
+    @*<script>
         var chapters = [];
         function createChapterVersesArray() {
             @foreach(var group in Model.VersesByChapter)
@@ -48,6 +56,6 @@
             $('#verse-navigator-chapter-select').change(populateVerses);
             populateVerses();
         });
-    </script>
+    </script>*@
 </div>
 

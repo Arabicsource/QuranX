@@ -65,6 +65,7 @@ namespace QuranX.DomainClasses.Builders
 				chapters: ChapterRepository.All(),
 				chapterNumber: chapterNumber,
 				verseNumber: verseNumber,
+				urlTemplate: UrlTemplate.Quran,
 				forwardChapterNumber: nextVerse.Chapter,
 				forwardVerseNumber: nextVerse.FirstVerse,
 				backChapterNumber: previousVerse.Chapter,

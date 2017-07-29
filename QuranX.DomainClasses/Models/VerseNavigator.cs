@@ -9,6 +9,7 @@ namespace QuranX.DomainClasses.Models
 		public Chapter[] Chapters { get; set; }
 		public int ChapterNumber { get; set; }
 		public int VerseNumber { get; set; }
+		public UrlTemplate UrlTemplate { get; set; }
 		public int ForwardChapterNumber { get; set; }
 		public int ForwardVerseNumber { get; set; }
 		public int BackChapterNumber { get; set; }
@@ -21,6 +22,7 @@ namespace QuranX.DomainClasses.Models
 			Chapter[] chapters, 
 			int chapterNumber, 
 			int verseNumber, 
+			UrlTemplate urlTemplate,
 			int forwardChapterNumber, int forwardVerseNumber, 
 			int backChapterNumber, int backVerseNumber,
 			IEnumerable<VerseRange> availableVerses)
@@ -28,6 +30,7 @@ namespace QuranX.DomainClasses.Models
 			Chapters = chapters;
 			ChapterNumber = chapterNumber;
 			VerseNumber = verseNumber;
+			UrlTemplate = urlTemplate;
 			ForwardChapterNumber = forwardChapterNumber;
 			ForwardVerseNumber = forwardVerseNumber;
 			BackChapterNumber = backChapterNumber;

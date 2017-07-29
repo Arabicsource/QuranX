@@ -121,6 +121,7 @@
     <Compile Include="Entities\VerseAnalysisWord.cs" />
     <Compile Include="Entities\VerseAnalysisWordPart.cs" />
     <Compile Include="Entities\VerseText.cs" />
+    <Compile Include="Models\UrlTemplates.cs" />
     <Compile Include="Models\VerseNavigator.cs" />
     <Compile Include="Models\VerseTranslation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
