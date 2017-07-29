@@ -5,10 +5,16 @@
 
 <h1>The Quran</h1>
 
-@Html.Partial("VersesView", Model.Verses)
-@{ 
-   Html.RenderAction("VerseNavigator", "VerseBrowse", new
-   {
-       verseNavigator = Model.VerseNavigator
-   });
-}
+<div class="row">
+    <div class="col-xs-12 col-md-4 col-md-push-4">
+        @Html.Partial("VersesView", Model.Verses)
+    </div>
+    <div class="col-xs-12 col-md-8 col-md-pull-4">
+        @{
+           Html.RenderAction("VerseNavigator", "VerseBrowse", new
+           {
+               verseNavigator = Model.VerseNavigator
+           });
+        }
+    </div>
+</div>
