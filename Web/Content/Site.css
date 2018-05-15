@@ -309,6 +309,7 @@ dl.countAndLabel {
 .arabicText {
     text-align: right;
     font-size: 1.5em;
+	direction: rtl;
 }
 
     .arabicText a {
